@@ -1,0 +1,32 @@
+public class Contadores {
+
+    public void contadores() {
+
+        int parjugada = 0, parganada = 0, tpartida = 0, tevolu = 0, yo = 0, el = 0;
+
+        for (int i = 0; i < 50; i++) {
+
+            yo = (int) (Math.random() * 10 + 1);
+            el = (int) (Math.random() * 10 + 1);
+
+            parjugada++;
+
+            if (yo > el) {
+                parganada++;
+            }
+
+        }
+
+        tpartida = parjugada / 10;
+
+        tevolu = parganada / 10;
+
+        System.out.println("Yo: " + yo);
+        System.out.println("Rival: " + el);
+        System.out.println("Partidas jugadas: " + parjugada);
+        System.out.println("Partidas ganadas: " + parganada);
+        System.out.println("Token cada 10 partidas: " + tpartida);
+        System.out.println("Token cada 10 victorias: " + tevolu);
+    }
+
+}
