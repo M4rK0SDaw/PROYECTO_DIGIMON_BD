@@ -16,13 +16,24 @@ public class Digimon {
     int ID_EVOLUTION;
     int ATTACK;
     int DEFENSE;
-    String TYPE_DIGI;
+    int TYPE_DIGI;
     int LVL;
 
-    Digimon(String NAME_Digi, int ATTACK, int DEFENSE) {
+    Digimon(int ATTACK, int DEFENSE, int TYPE_DIGI) {
+        this.TYPE_DIGI = 1;
+        this.DEFENSE = 40;
+        this.ATTACK = 40;
+    }
+
+    Digimon(String NAME_Digi, int ATTACK, int DEFENSE, int TYPE_DIGI) {
+        this.TYPE_DIGI = 1;
         this.DEFENSE = DEFENSE;
         this.NAME_Digi = NAME_Digi;
         this.ATTACK = ATTACK;
+    }
+
+    Digimon(String NAME_Digi) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     void setNAME_Digi(String nombre) {
@@ -52,11 +63,11 @@ public class Digimon {
 
     }
 
-    void setTYPE_DIGI(String tipo) {
+    void setTYPE_DIGI(int tipo) {
         this.TYPE_DIGI = TYPE_DIGI;
     }
 
-    String getTYPE_DIGI() {
+    int getTYPE_DIGI() {
         return TYPE_DIGI;
 
     }

@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"Digimon_bbdd","l":"Digimon"},{"p":"Digimon_bbdd","l":"DigimonTreeMap"},{"p":"Digimon_bbdd","l":"Estar_Equipo"},{"p":"Sleer2","l":"SLeer2"},{"p":"Digimon_bbdd","l":"Usuario"}];updateSearchResults();

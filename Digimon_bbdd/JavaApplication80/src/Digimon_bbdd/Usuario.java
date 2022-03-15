@@ -16,6 +16,11 @@ public class Usuario {
     int Match_Win;
     int Match_Play;
 
+//    Usuario() {
+//        Nombre_J = "Manuel";
+//        Password = "123";
+//    }
+
     /**
      * Este es un metodo constructor de Jugador, se le dan los valores de nombre
      * y de contrasenya
@@ -66,17 +71,4 @@ public class Usuario {
 
     }
 
-    void muestraDigimon() {
-    }
-
-    /*
-    Hay que comprobar que el nombre no estes repetido 
-    
-    la contrasenya escribirla dos veces para comprobar que sea igual
-    
-    
-    
-    
-    
-     */
 }
