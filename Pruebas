@@ -1,12 +1,26 @@
-public class Contadores {
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Digimon_bbdd;
+import Sleer2.SLeer2;
 
-    public void contadores() {
+/**
+ *
+ * @author Efren
+ */
+public class Partidas {
+
+    public static void contadores() {
 
         //Creamos las variables.
         int parjugada = 0, parganada = 0, tpartida = 0, tevolu = 0, yo = 0, el = 0;
 
+        int numero = SLeer2.datoInt("Cuantas partidas desea realizar?: ");
+        
         //Hcemos un bucle para jugar x partidas y hacemos que 'yo' batalle con 'el' con números aleatorios.
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < numero; i++) {
 
             yo = (int) (Math.random() * 10 + 1);
             el = (int) (Math.random() * 10 + 1);
@@ -28,12 +42,20 @@ public class Contadores {
         tevolu = parganada / 10;
 
         //Para finalizar imprimimos todos los datos.
-        System.out.println("Yo: " + yo);
-        System.out.println("Rival: " + el);
-        System.out.println("Partidas jugadas: " + parjugada);
-        System.out.println("Partidas ganadas: " + parganada);
-        System.out.println("Token cada 10 partidas: " + tpartida);
-        System.out.println("Token cada 10 victorias: " + tevolu);
+
+                System.out.println(
+                "     *           MENÚ USUARIO             *\n"
+                + "     ************************************\n"
+                + "     *                                  *\n"
+                + "     *        Partidas jugadas: "+parjugada+"       *\n"
+                + "     *                                  *\n"
+                + "     *        Partidas ganadas: "+parganada+"       *\n"
+                + "     *                                  *\n"
+                + "     *    Token cada 10 partidas: " + tpartida+"     *\n"
+                + "     *                                  *\n"
+                + "     *    Token cada 10 victorias: " + tevolu+"    *\n"
+                + "     *                                  *\n"
+                + "     ************************************\n");
     }
 
 }
