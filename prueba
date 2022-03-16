@@ -1,0 +1,26 @@
+public class Compraobar {
+  
+   
+public static void compruebaNombre(String n){
+ String valor=" ";
+    while(n.length()<6){
+       
+       if(valor>"a"){
+    System.err.print("Escribe el nombre de nuevo: ");
+    n=datoString();
+       }
+       
+       
+    
+    
+
+   
+}
+}
+    public static void main(String[] args) {
+        System.out.print("Escribe un nombre: ");
+        String nombre=datoString();
+        
+        compruebaNombre(nombre);
+}
+}
