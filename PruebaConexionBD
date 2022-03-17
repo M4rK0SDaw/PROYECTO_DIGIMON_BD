@@ -1,0 +1,28 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+public class PruebaConexion {
+
+    
+    public static void main(String[] args) {
+        Connection conexion1 = null;
+		
+ 
+		
+		String user = "root";
+		String password = "Basededatos1";
+		try {
+ 
+			
+			
+			String url = "jdbc:mysql://localhost:3306/digimon_bd2?user=" + user + "&password=" + password;
+			conexion1 = DriverManager.getConnection(url);
+			if (conexion1 != null) {
+				System.out.println("Conexión 1: Conexión a digimon_bd2 satisfacoria");
+			}
+		} catch (SQLException e) {
+			System.out.println("Error en la conexión, verifique, su usuario y password o el nombre de la base a la que intenta conectarse");
+			e.printStackTrace();
+		}
+	}
+}
