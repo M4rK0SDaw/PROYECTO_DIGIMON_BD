@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Digimon_bbdd">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/dist/Digimon_bbdd.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

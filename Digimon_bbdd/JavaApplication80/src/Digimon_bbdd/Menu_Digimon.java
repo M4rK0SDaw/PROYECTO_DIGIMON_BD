@@ -23,7 +23,7 @@ public class Menu_Digimon {
                 + "     *                                  *\n"
                 + "     *        [2] BORRAR PARTIDA        *\n"
                 + "     *                                  *\n"
-                + "     *        [2] ADMINISTRADOR         *\n"
+//                + "     *        [2] ADMINISTRADOR         *\n"
                 + "     *                                  *\n"
                 + "     ************************************\n");
 

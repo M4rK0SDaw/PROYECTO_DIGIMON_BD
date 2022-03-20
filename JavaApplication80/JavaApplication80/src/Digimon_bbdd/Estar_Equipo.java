@@ -9,51 +9,61 @@ package Digimon_bbdd;
 import java.util.*;
 
 /**
- *
  * @author Marek
  */
 public class Estar_Equipo implements java.io.Serializable {
 
-    String Digimon;
-    /*
-        HashSet<ArrayList<Digimon>> DigimonSet = new HashSet<ArrayList<Digimon>>();
+    private Usuario usuario;
+    private Digimon digimon;
 
-    ArrayList<Digimon> ArrayDigi = new ArrayList();
+    // string es el nombre del usu y integer el id del digimon
+    HashMap<String, HashSet<Integer>> mapUsuDigi;
 
-     */
-    ArrayList<Digimon> ListaDigi = new ArrayList();
-    /*
-    
-      int ID_DIGIMON;
-    String NAME_Digi;
-    int ID_EVOLUTION;
-    int ATTACK;
-    int DEFENSE;
+    HashMap<String, Usuario> inforUser;
 
-    int LVL;
-    
+    HashMap<Integer, Digimon> inforDigimon;
 
-  
+    //crear una class de coneccion ocn la base de datos 
+    // para poder rellenarlo.
+    //-------------------------------------------------------------
+    //atributos
+    SortedMap<String, ArrayList<Digimon>> lista;
+    ArrayList<Usuario> ListaUsu;
+    String ListaUsu1 = "Ramon";
+    String ListaUsu2 = "Perro";
+    ArrayList<Digimon> ListaDigi;
+    static HashSet<Digimon> DigimonSet;
 
+    //constructor
+    public Estar_Equipo() {
+        lista = new TreeMap<>();
+        ListaDigi = new ArrayList<>();
+        DigimonSet = new HashSet<>();
+        ListaUsu = new ArrayList<>();
+    }
+
+    //digimon por defecto
     Digimon dgL1 = new Digimon("Agumon");
     Digimon dgL2 = new Digimon("Tentomon");
     Digimon dgL3 = new Digimon("ANTOMON");
     Digimon dgL4 = new Digimon("MANAMON");
     Digimon dgL5 = new Digimon("ZAPATAMON");
     Digimon dgL6 = new Digimon("KOKORIMON");
-     */
-    HashSet<Digimon> DigimonSet = new HashSet<Digimon>();
 
-    void rellenaArray() {
-        DigimonSet.forEach(d -> {
-            ListaDigi.add(d);
-        });
+    private void rellenaArray() {
 
-        /*
-        for (Digimon d : DigimonSet) {
-            ArrayDigi.add(d);
-        }
-         */
+        ListaDigi.add(dgL1);
+        ListaDigi.add(dgL2);
+        ListaDigi.add(dgL3);
+        ListaDigi.add(dgL4);
+        ListaDigi.add(dgL5);
+        ListaDigi.add(dgL6);
+
+        DigimonSet.addAll(ListaDigi);
+    }
+
+    public void crearDigiDefault() {
+        rellenaArray();
     }
 
     /**
@@ -63,7 +73,7 @@ public class Estar_Equipo implements java.io.Serializable {
      * @param NAME_Digi
      * @return el resultado del bucle if true o false
      */
-    boolean addDigimon(String NAME_Digi) {
+    public boolean addDigimon(String NAME_Digi) {
 
         Digimon digi = new Digimon(NAME_Digi);
         if (DigimonSet.contains(digi)) {
@@ -74,7 +84,6 @@ public class Estar_Equipo implements java.io.Serializable {
         }
     }
 
-    /*metodo para digievolucionar*/
     /**
      * Este es un metodo borrar digimon, pasamos por parametro un objeto
      * digimon, comprobaremos que su nombre existe en la lista, si esxiste se
@@ -82,10 +91,11 @@ public class Estar_Equipo implements java.io.Serializable {
      * de que se logro la ejecucion en caso contrario sie el nombre no existe en
      * la lista la condicion no se cumple y devuelve un false
      *
+     * @param digi objeto digimon
      * @return devuelve true cuando existe el nomnbre en la lista y lo elimina,
      * false si no existe en ella
      */
-    boolean removeDigimon(Digimon digi) {
+    public boolean removeDigimon(Digimon digi) {
 
         if (DigimonSet.contains(digi)) {
             DigimonSet.remove(digi);
@@ -94,13 +104,6 @@ public class Estar_Equipo implements java.io.Serializable {
             return false;
         }
 
-    }
-
-//  HashMap<Usuario, HashSet< Digimon>> lista = new HashMap<Usuario, HashSet<Digimon>>();
-    SortedMap<String, ArrayList<Digimon>> lista;
-
-    Estar_Equipo() {
-        lista = new TreeMap<String, ArrayList<Digimon>>();
     }
 
     /**
@@ -151,19 +154,14 @@ public class Estar_Equipo implements java.io.Serializable {
         }
     }
 
-//    void modificaPosicion(Usuario usu, String digimon1, String digimon2) {
-//        if (lista.containsKey(usu)) {
-//
-//        }
-//    }
-//    Usuario recuperar(String  usu) {
-//        if (lista.containsKey(usu)) {
-//            return lista.get(usu);
-//        } else {
-//            return null;
-//        }
-//
-//    }
+    ArrayList<Digimon> recuperar(Usuario usu) {
+        if (lista.containsKey(usu)) {
+            return lista.get(usu);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * Este emtodo Elimina usuarios, pasamos por parametro un usuario,
      * comprobamos que este en el mapa con la key que es su nombre, si esxiste
@@ -197,41 +195,16 @@ public class Estar_Equipo implements java.io.Serializable {
         }
     }
 
+    /**
+     * Este metodo muestra el contenido de la lista
+     */
+    public static void mostrarLista() {
+        DigimonSet.forEach(System.out::println);
+    }
+
     public Set<Map.Entry<String, ArrayList<Digimon>>> total() {
 
         return lista.entrySet();
     }
 
-//    Usuario Usuario;
-//    Digimon Digimon;
-//
-//    boolean Esta_Equipo;
-//
-//    boolean Estar_Equipo(Usuario Usuario, Digimon Digimon) {
-//
-//        return false;
-//
-//    }
-    public static void main(String[] args) {
-
-        ArrayList<Digimon> ListaDigi = new ArrayList();
-
-        Digimon dgL1 = new Digimon("Agumon",10);
-        Digimon dgL2 = new Digimon("Tentomon");
-        Digimon dgL3 = new Digimon("ANTOMON");
-        Digimon dgL4 = new Digimon("MANAMON");
-        Digimon dgL5 = new Digimon("ZAPATAMON");
-        Digimon dgL6 = new Digimon("KOKORIMON");
-
-        ListaDigi.add(dgL1);
-        ListaDigi.add(dgL2);
-        ListaDigi.add(dgL3);
-        ListaDigi.add(dgL4);
-        ListaDigi.add(dgL5);
-        ListaDigi.add(dgL6);
-
-        for(Digimon d: ListaDigi){
-            System.out.println(d.ATTACK);
-        }
-    }
 }
