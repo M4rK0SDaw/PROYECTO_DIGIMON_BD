@@ -11,8 +11,8 @@ package Digimon_bbdd;
  */
 public class Usuario {
 
-    static String Nombre_J;
-    static String Password;
+    private String Nombre_J;
+    private String Password;
 
     public Usuario(String Nombre_J, String Password) {
         this.Nombre_J = Nombre_J;
@@ -20,8 +20,8 @@ public class Usuario {
 
     }
 
-    Usuario(Usuario nombre) {
-        this.Nombre_J = Nombre_J;
+    public Usuario(String nombre) {
+        this.Nombre_J = nombre;
     }
 
     public String getNombre_J() {

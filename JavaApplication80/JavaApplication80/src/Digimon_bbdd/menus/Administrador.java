@@ -3,6 +3,9 @@ package Digimon_bbdd.menus;
 import java.sql.*;
 import Digimon_bbdd.*;
 import Digimon_bbdd.Conection.Conection;
+import static Digimon_bbdd.consultas.Consultas.*;
+
+import Digimon_bbdd.consultas.Consultas;
 import Sleer2.SLeer2;
 
 /**
@@ -11,18 +14,17 @@ import Sleer2.SLeer2;
  */
 public class Administrador {
 
-    String nomDigi;
-    int atackDigi;
-    int deffkDigi;
-    int lvlDigi;
-    String usuario;
-    String contrasenya;
-    String contrasenya2;
-
-    String tipoDigi;
+    static String nomDigi;
+    static int atackDigi;
+    static int deffkDigi;
+    static int lvlDigi;
+    static String usuario;
+    static String contrasenya;
+    static String contrasenya2;
+    static String tipoDigi;
 
     public void menu() {
-        //mostrar el menu
+        //mostrar el meu  de adiminstrador 
         Menu_Digimon.menuAdministrador();
         int eleccion = SLeer2.datoInt("Selecciona la opcion: ");
 
@@ -32,7 +34,6 @@ public class Administrador {
 
             case 1:
                 altaUsuario();
-
                 break;
 
             //2 -> alta digimon
@@ -56,54 +57,43 @@ public class Administrador {
     /**
      *
      */
-    private void altaUsuario() {
-        //preguntar por las credenciales y asignar el usuario en Menu_Digimon
-        //conexion a base de datos.
+    public static void altaUsuario() {
 
-        try {
-            Connection con = Conection.conexion();
+        boolean exists = true;
 
-            do {
-                usuario = SLeer2.datoString("Introduce el nombre de usuario: [Se pueden Mayus y minusc., pero no numeros.]");
+        String usuario;
+        String contrasenya, contrasenya1, contrasenya2;
+        do {
+            usuario = SLeer2.datoString("Introduce el usuario: ");
+            SLeer2.limpiar();
+//combio por consultaExisteUsuario
+            exists = consultaExisteUsuario(usuario);
+            //Consultas.consultaExisteAdmin(usuario);
 
-                if (!(usuario.charAt(0) >= 'a' && usuario.charAt(0) <= 'z'
-                        || usuario.charAt(0) >= 'A' && usuario.charAt(0) <= 'Z')) {
-                    System.out.println("");
-                    System.err.println(" El nombre introducido es erroneo.");
-                    System.out.println("");
+            if (exists) {
+                System.out.println("El usuario indicado ya existe, inserte otro distinto.");
+            } else {
+                contrasenya1 = SLeer2.datoString("Introduce la contraseña: ");
+                SLeer2.limpiar();
+                contrasenya2 = SLeer2.datoString("Repita la contraseña: ");
+                SLeer2.limpiar();
+                if (contrasenya1.equals(contrasenya2)) {
+                    contrasenya = contrasenya1;
+                } else {
+                    exists = true;
                 }
+            }
 
-                if (true) {
+        } while (exists);
 
-                }
-
-            } while (usuario == usuario /*!(usuario.charAt(0) >= 'a' && usuario.charAt(0) <= 'z'
-                    || usuario.charAt(0) >= 'A' && usuario.charAt(0) <= 'Z')*/);
-
-            do {
-                contrasenya = SLeer2.datoString("Introduce la contraseña: ");
-                contrasenya2 = SLeer2.datoString("Introduce la contraseña otra vez : ");
-                if (contrasenya.equals(contrasenya2)) {
-                    System.err.println(" Introduzca la misma contraseña ");
-                }
-            } while (contrasenya.equals(contrasenya2));
-
-            Menu_Digimon.user = new Usuario(usuario, contrasenya);
-
-            //hacer un try catch
-            //cerrar la conexion de base de datos
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            Conection.cerrarConexion();
-        }
+        //crear usuario admin
     }
 
     /**
      * Este emtodo es el dar de alta a digimon, con sus atributos
      * correspondientes.
      */
-    private void altaDigimon() {
+    public static void altaDigimon() {
 
         do {
             //nombre de digimon

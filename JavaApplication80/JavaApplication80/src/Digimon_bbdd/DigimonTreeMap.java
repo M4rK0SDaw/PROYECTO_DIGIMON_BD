@@ -23,14 +23,13 @@ public class DigimonTreeMap {
     static String nombre;
     static Digimon digimon;
 
-
     public static void main(String[] args) {
 
         //mostrar menu
-//        Menu_Digimon men = new Menu_Digimon();
-//        while (!men.exit) {
-//            men.Menu();
-//        }
+        Menu_Digimon men = new Menu_Digimon();
+        while (!Menu_Digimon.exit) {
+            men.Menu();
+        }
         //etEqu.mostrarLista();
         /*int usu = Menu_Digimon.Menu();
 

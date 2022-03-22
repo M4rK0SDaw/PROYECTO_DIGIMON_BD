@@ -18,7 +18,7 @@ public class Conection {
     static String driver = "com.mysql.cj.jdbc.Driver";
     static String usuarioBD = "root";
     static String passs = "santabarbara40";
-   public static Connection con;
+    public static Connection con;
 
     public static Connection conexion() {
         try {

@@ -6,7 +6,10 @@
  */
 package Digimon_bbdd;
 
+import Digimon_bbdd.Digimon.*;
+
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author Marek
@@ -16,14 +19,13 @@ public class Estar_Equipo implements java.io.Serializable {
     private Usuario usuario;
     private Digimon digimon;
 
-    // string es el nombre del usu y integer el id del digimon
-    HashMap<String, HashSet<Integer>> mapUsuDigi;
+    //String es el nombre del usu y integer el id del digimon
 
-    HashMap<String, Usuario> inforUser;
+    /* HashMap<String, HashSet<Integer>> mapUsuDigi;
 
-    HashMap<Integer, Digimon> inforDigimon;
+HashMap<String, Usuario> inforUser;
 
-    //crear una class de coneccion ocn la base de datos 
+HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la base de datos
     // para poder rellenarlo.
     //-------------------------------------------------------------
     //atributos
@@ -120,14 +122,15 @@ public class Estar_Equipo implements java.io.Serializable {
      */
     boolean agreg_Digi_Usua_Inicio(Usuario usu) {
 
-        if (lista.containsKey(usu.Nombre_J)) {
+        if (!lista.containsKey(usu.getNombre_J())) {
             return false;
         } else {
-            ArrayList<Digimon> A = new ArrayList();
+            ArrayList<Digimon> A = new ArrayList<>();
 
             for (int i = 0; i < 3; i++) {
-                A.add(ListaDigi.get(i));
-                lista.put(usu.Nombre_J, A);
+                //añadimos un digimon distinto a cada usuario
+                A.add(ListaDigi.get(ThreadLocalRandom.current().nextInt(0, ListaDigi.size())));
+                lista.put(usu.getNombre_J(), A);
             }
 
             return true;
@@ -145,23 +148,21 @@ public class Estar_Equipo implements java.io.Serializable {
      */
     boolean agregarUsuario(Usuario usu) {
 
-        if (lista.containsKey(usu.Nombre_J)) {
+        if (lista.containsKey(usu.getNombre_J())) {
             return false;
         } else {
-
-            lista.put(usu.Nombre_J, new ArrayList<Digimon>());
+            lista.put(usu.getNombre_J(), new ArrayList<>());
             return true;
         }
     }
 
-    ArrayList<Digimon> recuperar(Usuario usu) {
-        if (lista.containsKey(usu)) {
-            return lista.get(usu);
-        } else {
-            return null;
-        }
+    /* Usuario recuperar(Usuario usu) {
+    if (lista.containsKey(usu)) {
+    return lista.get(Digimon);
+    } else {
+    return null;
     }
-
+    }*/
     /**
      * Este emtodo Elimina usuarios, pasamos por parametro un usuario,
      * comprobamos que este en el mapa con la key que es su nombre, si esxiste
