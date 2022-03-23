@@ -95,6 +95,33 @@ public class Administrador {
      */
     public static void altaDigimon() {
 
+        boolean exists = true;
+
+        String NombreDigimon ;
+        do {
+            usuario = SLeer2.datoString("Introduce el nombre del Digimon ");
+            SLeer2.limpiar();
+//combio por consultaExisteUsuario
+            exists = consultaExistDigimon(NombreDigimon);
+            //Consultas.consultaExisteAdmin(usuario);
+
+            if (exists) {
+                System.out.println("El usuario indicado ya existe, inserte otro distinto.");
+            } else {
+                contrasenya1 = SLeer2.datoString("Introduce la contraseña: ");
+                SLeer2.limpiar();
+                contrasenya2 = SLeer2.datoString("Repita la contraseña: ");
+                SLeer2.limpiar();
+                if (contrasenya1.equals(contrasenya2)) {
+                    contrasenya = contrasenya1;
+                } else {
+                    exists = true;
+                }
+            }
+
+        } while (exists);
+
+        /* 
         do {
             //nombre de digimon
             nomDigi = SLeer2.datoString("Intoduce el nombre del digimon");
@@ -160,8 +187,9 @@ public class Administrador {
                         break;
                 }
             }
-        } while (tipoDigi.equals(tipoDigi));
-
+        } while (tipoDigi.equals(tipoDigi));*/
+        
+        
         Menu_Digimon.digi = new Digimon(nomDigi, atackDigi, deffkDigi, lvlDigi, tipoDigi);
     }
 
