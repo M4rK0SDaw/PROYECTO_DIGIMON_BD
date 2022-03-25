@@ -30,18 +30,17 @@ public class Digimon {
         LVL = 1;
     }
 
-  public  Digimon(String NAME_Digi, int ATTACK, int DEFENSE, int LVL, String TYPE_DIGI) {
-
+    public Digimon(int ID_DIGIMON, String NAME_Digi, int ID_EVOLUTION, int ATTACK, int DEFENSE, String TYPE_DIGI, int LVL) {
+        this.ID_DIGIMON = 0;
         this.DEFENSE = DEFENSE;
         this.NAME_Digi = NAME_Digi;
+        this.ID_EVOLUTION = 0;
         this.ATTACK = ATTACK;
+
+        this.TYPE_DIGI = TYPE_DIGI;
         this.LVL = LVL;
-         this.TYPE_DIGI = TYPE_DIGI;
     }
 
-    /*Digimon(String NAME_Digi) {
-        this.NAME_Digi = NAME_Digi;
-    }*/
     public int getID_DIGIMON() {
         return ID_DIGIMON;
     }

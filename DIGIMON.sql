@@ -1,25 +1,22 @@
-
--- ____________________________________________________________________
-
 create database DIGIMON_BD;
 use DIGIMON_BD;
 
 CREATE TABLE PLAYER (
-NAME_J VARCHAR(20),
+id_name int auto_increment,
+NAME_J VARCHAR(20) unique,
 PASSWD VARCHAR(32) NOT NULL,
-MATCH_WIN INT NOT NULL,
-MATCH_PLAY INT NOT NULL,
+Administrador BOOLEAN,
 constraint JU_PK primary KEY( NAME_J)
 );
 
 CREATE TABLE DIGIMON(
-ID_DIGIMON int,
-NAME_Digi varchar(25) unique,
-ID_EVOLUTION int unique not null,
-ATTACK  INT NOT NULL,
-DEFENSE INT NOT NULL,
-TYPE_DIGI INT NOT NULL,
-LVL INT ,
+ID_DIGIMON auto_increment,
+NAME_Digi varchar(30) unique,
+ID_EVOLUTION int DEFAULT null ,
+ATTACK  INT NOT NULL DEFAULT 40,
+DEFENSE INT NOT NULL DEFAULT 40,
+TYPE_DIGI ENUM("vacuna","virus","elemental","animal","planta") DEFAULT "vacuna",
+LVL ENUM('1','2','3') default 1,
 constraint DIG_PK primary key (ID_DIGIMON)
 );
 /*
@@ -28,20 +25,14 @@ ya que se puede definir al crear un digimon nuevo.
 */
 
 CREATE TABLE TENER_DIGI(
-NAME_J VARCHAR(20),
-NAME_Digi VARCHAR(20),
-Is_In_TEAM bool,
-constraint TD_PK PRIMARY KEY ( NAME_J,NAME_Digi)
+id_name int ,
+ID_DIGIMON  int ,
+
+constraint TD_PK PRIMARY KEY ( NAME_J,ID_DIGIMON)
 );
 
 alter table TENER_DIGI
 add constraint TD_JU_FK foreign key (NAME_J ) references PLAYER (NAME_J );
 
 alter table TENER_DIGI
-add constraint TD_DI_FK foreign key (NAME_Digi ) references DIGIMON (NAME_Digi );
-
-
-
-
-
-
+add constraint TD_DI_FK foreign key (ID_DIGIMON ) references DIGIMON (ID_DIGIMON )on delete on CASCADE;

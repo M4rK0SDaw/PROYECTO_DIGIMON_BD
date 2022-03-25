@@ -5,6 +5,7 @@
  */
 package Digimon_bbdd;
 
+import Digimon_bbdd.consultas.Consultas;
 import Digimon_bbdd.menus.Menu_Digimon;
 import Sleer2.SLeer2;
 
@@ -24,12 +25,16 @@ public class DigimonTreeMap {
     static Digimon digimon;
 
     public static void main(String[] args) {
-
+        // cargar os digimon si no existen, si existen no lo hace.
+        Consultas.cargarDIgimon();
         //mostrar menu
         Menu_Digimon men = new Menu_Digimon();
+
         while (!Menu_Digimon.exit) {
             men.Menu();
+
         }
+
         //etEqu.mostrarLista();
         /*int usu = Menu_Digimon.Menu();
 

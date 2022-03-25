@@ -13,21 +13,19 @@ import java.sql.*;
  */
 public class Conection {
 
-    static String url = "jdbc:mysql://localhost:3306/";
-    public static String NomDB = "digimon_bd?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    public static String NomDB = "jdbc:mysql://localhost:3306/digimon_bd?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     static String driver = "com.mysql.cj.jdbc.Driver";
     static String usuarioBD = "root";
-    static String passs = "santabarbara40";
+    static String pass = "santabarbara40";
     public static Connection con;
 
     public static Connection conexion() {
         try {
 
             Class.forName(driver);
-            con = (Connection) DriverManager.getConnection(url + NomDB + usuarioBD + passs);
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery("show databases;");
-            System.out.println("Connected");
+            con = (Connection) DriverManager.getConnection(NomDB, usuarioBD, pass);
+            // Al realizar la conexion imprime la palabra 'connected'
+            // System.out.println("Connected");
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e);

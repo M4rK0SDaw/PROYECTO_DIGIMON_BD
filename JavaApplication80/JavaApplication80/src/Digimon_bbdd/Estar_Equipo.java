@@ -29,45 +29,42 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
     // para poder rellenarlo.
     //-------------------------------------------------------------
     //atributos
-    SortedMap<String, ArrayList<Digimon>> lista;
+    SortedMap<Integer, ArrayList<Digimon>> lista;
     ArrayList<Usuario> ListaUsu;
     String ListaUsu1 = "Ramon";
     String ListaUsu2 = "Perro";
-    ArrayList<Digimon> ListaDigi;
-    static HashSet<Digimon> DigimonSet;
+    public static ArrayList<Digimon> ListaDigi = new ArrayList();
 
     //constructor
     public Estar_Equipo() {
         lista = new TreeMap<>();
         ListaDigi = new ArrayList<>();
-        DigimonSet = new HashSet<>();
+
         ListaUsu = new ArrayList<>();
     }
 
     //digimon por defecto
-    Digimon dgL1 = new Digimon("Agumon");
-    Digimon dgL2 = new Digimon("Tentomon");
-    Digimon dgL3 = new Digimon("ANTOMON");
-    Digimon dgL4 = new Digimon("MANAMON");
-    Digimon dgL5 = new Digimon("ZAPATAMON");
-    Digimon dgL6 = new Digimon("KOKORIMON");
-
-    private void rellenaArray() {
-
-        ListaDigi.add(dgL1);
-        ListaDigi.add(dgL2);
-        ListaDigi.add(dgL3);
-        ListaDigi.add(dgL4);
-        ListaDigi.add(dgL5);
-        ListaDigi.add(dgL6);
-
-        DigimonSet.addAll(ListaDigi);
-    }
-
-    public void crearDigiDefault() {
-        rellenaArray();
-    }
-
+//    Digimon dgL1 = new Digimon("Agumon");
+//    Digimon dgL2 = new Digimon("Tentomon");
+//    Digimon dgL3 = new Digimon("ANTOMON");
+//    Digimon dgL4 = new Digimon("MANAMON");
+//    Digimon dgL5 = new Digimon("ZAPATAMON");
+//    Digimon dgL6 = new Digimon("KOKORIMON");
+//
+//    private void rellenaArray() {
+//
+//        ListaDigi.add(dgL1);
+//        ListaDigi.add(dgL2);
+//        ListaDigi.add(dgL3);
+//        ListaDigi.add(dgL4);
+//        ListaDigi.add(dgL5);
+//        ListaDigi.add(dgL6);
+//
+//        DigimonSet.addAll(ListaDigi);
+//    }
+//    public void crearDigiDefault() {
+//        rellenaArray();
+//    }
     /**
      * Este metodo addDigimon agrega un digimon a la lista del hashset, si el
      * nombre es repetido es devuelve true y no existe es false.
@@ -78,10 +75,10 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
     public boolean addDigimon(String NAME_Digi) {
 
         Digimon digi = new Digimon(NAME_Digi);
-        if (DigimonSet.contains(digi)) {
+        if (ListaDigi.contains(digi)) {
             return true;
         } else {
-            DigimonSet.add(digi);
+            ListaDigi.add(digi);
             return false;
         }
     }
@@ -98,13 +95,14 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
      * false si no existe en ella
      */
     public boolean removeDigimon(Digimon digi) {
+        return false;
 
-        if (DigimonSet.contains(digi)) {
-            DigimonSet.remove(digi);
-            return true;
+        /*  if (DigimonSet.contains(digi)) {
+        DigimonSet.remove(digi);
+        return true;
         } else {
-            return false;
-        }
+        return false;
+        }*/
 
     }
 
@@ -120,9 +118,9 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
      * @param usu
      * @return
      */
-    boolean agreg_Digi_Usua_Inicio(Usuario usu) {
+    boolean agreg_Digi_a_Usu_Inicio(Usuario usu) {
 
-        if (!lista.containsKey(usu.getNombre_J())) {
+        if (!lista.containsKey(usu.getNAME_J())) {
             return false;
         } else {
             ArrayList<Digimon> A = new ArrayList<>();
@@ -130,7 +128,7 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
             for (int i = 0; i < 3; i++) {
                 //añadimos un digimon distinto a cada usuario
                 A.add(ListaDigi.get(ThreadLocalRandom.current().nextInt(0, ListaDigi.size())));
-                lista.put(usu.getNombre_J(), A);
+                //  lista.put(usu.getNAME_J(), A);
             }
 
             return true;
@@ -148,10 +146,10 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
      */
     boolean agregarUsuario(Usuario usu) {
 
-        if (lista.containsKey(usu.getNombre_J())) {
+        if (lista.containsKey(usu.getNAME_J())) {
             return false;
         } else {
-            lista.put(usu.getNombre_J(), new ArrayList<>());
+//            lista.put(usu.getNAME_J(), new ArrayList<>());
             return true;
         }
     }
@@ -199,13 +197,14 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
     /**
      * Este metodo muestra el contenido de la lista
      */
-    public static void mostrarLista() {
-        DigimonSet.forEach(System.out::println);
+    public static void mostrarListaMapa() {
+        ListaDigi.forEach(System.out::println);
     }
 
     public Set<Map.Entry<String, ArrayList<Digimon>>> total() {
+        return null;
 
-        return lista.entrySet();
+        //    return lista.entrySet();
     }
 
 }

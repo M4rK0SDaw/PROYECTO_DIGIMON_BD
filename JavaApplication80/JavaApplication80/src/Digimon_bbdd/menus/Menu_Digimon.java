@@ -17,7 +17,8 @@ public class Menu_Digimon {
     static Digimon digi;
 
     private Partidas partida;
-    protected static Usuario user;
+
+    static Usuario user;
 
     public static boolean exit;
 
@@ -25,7 +26,7 @@ public class Menu_Digimon {
         exit = false;
         //creamos digimons por defecto
         Estar_Equipo etEqu = new Estar_Equipo();
-        etEqu.crearDigiDefault();
+//        etEqu.crearDigiDefault();
         //this.partida = new Partidas();
     }
 
@@ -33,126 +34,86 @@ public class Menu_Digimon {
 
         System.out.println(
                 "     *                 MENÚ             *\n"
-                        + "     ************************************\n"
-                        + "     *                                  *\n"
-                        + "     *        [1] INICIAR PARTIDA       *\n"
-                        + "     *                                  *\n"
-                        + "     *        [2] BORRAR PARTIDA        *\n"
-                        + "     *                                  *\n"
-                        + "     *        [3] ADMINISTRADOR         *\n"
-                        + "     *                                  *\n"
-                        + "     *        [4] SALIR                 *\n"
-                        + "     *                                  *\n"
-                        + "     ************************************\n");
+                + "     ************************************\n"
+                + "     *                                  *\n"
+                + "     *        [1] INICIAR PARTIDA       *\n"
+                + "     *                                  *\n"
+                + "     *        [2] BORRAR PARTIDA        *\n"
+                + "     *                                  *\n"
+                + "     *        [3] ADMINISTRADOR         *\n"
+                + "     *                                  *\n"
+                + "     *        [4] SALIR                 *\n"
+                + "     *                                  *\n"
+                + "     ************************************\n");
 
         int numero = SLeer2.datoInt("¿Como desea inciciar?");
         SLeer2.limpiar();
-        if (numero == 4) {
-            exit = true;
-        } else {
-            switch (numero) {
-                case 1:
 
-                    //introducir usuario y contraseña
-                    //iniciar el menu
-                    if (pedirCredenciales()) {
-                        menuUsuario();
-                    }
+        switch (numero) {
+            case 1:
+                //introducir usuario y contraseña
+                //iniciar el menu
+                if (pedirCredenciales()) {
+                    menuUsuario();
+                }
 
-                    break;
-                case 2:
-                    //comprobamos que exista un usuario creado
-                    if (user != null) {
-                        //pedir nombre y contraseña para borrar la partida si la hay
-                        if (pedirCredenciales()) {
-                            if (partida != null) {
-                                //si existe partida la eliminamos
-                                eliminarPartida();
-                            } else {
-                                System.err.println("No existen partidas");
-                            }
-                        }
+                break;
+            case 2:
+                //comprobamos que exista un usuario creado
+                // buscar el usuario en la base de datos
+                String nombre = SLeer2.datoString("Introduce el nombre");
+
+                if (Consultas.consultaExisteUsuario(nombre)) {
+                    Consultas.eliminarUsuario(nombre);
+                } else {
+                    System.err.println(".....No existe dicho usuario");
+                }
+                break;
+            case 3:
+                boolean correcto = false;
+                do {
+                    String usuario, contrasenya;
+                    usuario = SLeer2.datoString("Introduzca usuario: ");
+                    //SLeer2.limpiar();
+                    contrasenya = SLeer2.datoString("Introduzca contraseña: ");
+                    //SLeer2.limpiar();
+                    //administrar partida
+                    //llamar al menu de administrador
+                    if (Consultas.consultaCredencialesAdmin(usuario, contrasenya)) {
+                        new Administrador();
+                        menuAdministrador();
+                        correcto = true;
                     } else {
-                        System.err.println("No existen usuarios disponibles");
-                        //pedir si se desea crear un usuario
-                        Administrador.altaUsuario();
+                        System.err.println("Credenciales incorrectas, repitalas");
+                        System.out.println();
                     }
+                } while (!correcto);
+                //alta usuario, alta digimon, ver digimons, salir al menu
 
-                    break;
-                case 3:
-                    boolean correcto = false;
-                    do {
-                        String usuario, contrasenya;
-                        usuario = SLeer2.datoString("Introduzca usuario: ");
-                        SLeer2.limpiar();
-                        contrasenya = SLeer2.datoString("Introduzca contraseña: ");
-                        SLeer2.limpiar();
-                        //administrar partida
-                        //llamar al menu de administrador
-                        if (Consultas.consultaCredencialesAdmin(usuario, contrasenya)) {
-                            new Administrador().menu();
-                            correcto = true;
-                        } else {
-                            System.err.println("Credenciales incorrectas, repitalas");
-                            System.out.println();
-                        }
-                    } while (!correcto);
-                    //alta usuario, alta digimon, ver digimons, salir al menu
+                break;
+            case 4:
+                exit = true;
+                break;
+            default:
+                System.err.println("Opcion erronea, vuelva a seleccionar");
+                break;
 
-                    break;
-                default:
-                    System.err.println("Opcion erronea, vuelva a seleccionar");
-                    break;
-            }
         }
-    }
-
-    private void eliminarPartida() {
-        partida = null;
     }
 
     private boolean pedirCredenciales() {
         boolean correcto;
-
         String usuario;
         String contrasnya;
         do {
-            usuario = SLeer2.datoString("Introduce el usuario: ");
-            SLeer2.limpiar();
-            contrasnya = SLeer2.datoString("Introduce la contraseña: ");
-            SLeer2.limpiar();
+            usuario = SLeer2.datoString("Introduce el usuario: ").toLowerCase();
+//            SLeer2.limpiar();
+            contrasnya = SLeer2.datoString("Introduce la contraseña: ").toLowerCase();
+//            SLeer2.limpiar();
             correcto = Consultas.consultaCredencialesUsuario(usuario, contrasnya);
         } while (!correcto);
         return correcto;
     }
-
-    /*private boolean comprobarCredenciales(String usuario, String contrasnya) {
-        //recibimos le usuario y la contraseña y hacemos la comporobacion el bbdd
-        //comprobamos que las credenciales sean correctas
-        return Consultas.consultaExisteUsuario(usuario, contrasnya);
-        *//*if (Consultas.consultaExisteUsuario(usuario, contrasnya)) {
-            //comprobar contraseña
-            return Consultas.consultarContrasenya(usuario, contrasnya);
-        }
-        *//**//*do {
-            if (!(usuario.charAt(0) >= 'a' && usuario.charAt(0) <= 'z'
-                    || usuario.charAt(0) >= 'A' && usuario.charAt(0) <= 'Z')) {
-                System.out.println("");
-                System.err.println(" El nombre introducido es erroneo.");
-                System.out.println("");
-            }
-        } while (!(usuario.charAt(0) >= 'a' && usuario.charAt(0) <= 'z'));
-
-        do {
-            if (!(contrasnya.charAt(0) >= 'a' && contrasnya.charAt(0) <= 'z'
-                    || contrasnya.charAt(0) >= 'A' && contrasnya.charAt(0) <= 'Z')) {
-                System.out.println("");
-                System.err.println(" El nombre introducido es erroneo.");
-                System.out.println("");
-            }
-        } while (!(contrasnya.charAt(0) >= 'a' && contrasnya.charAt(0) <= 'z'));*//**//*
-        return false;*//*
-    }*/
 
     public void menuUsuario() {
         int numero;
@@ -160,19 +121,19 @@ public class Menu_Digimon {
 
             System.out.println(
                     "     *           MENÚ USUARIO             *\n"
-                            + "     ************************************\n"
-                            + "     *                                  *\n"
-                            + "     *        [1] VER MIS DIGIMON       *\n"
-                            + "     *                                  *\n"
-                            + "     *        [2] ORGANIZAR MI EQUIPO   *\n"
-                            + "     *                                  *\n"
-                            + "     *        [3] JUGAR PARTIDAS        *\n"
-                            + "     *                                  *\n"
-                            + "     *        [4] DIGIEVOLUCIONAR       *\n"
-                            + "     *                                  *\n"
-                            + "     *        [5] CERRAR SESION         *\n"
-                            + "     *                                  *\n"
-                            + "     ************************************\n");
+                    + "     ************************************\n"
+                    + "     *                                  *\n"
+                    + "     *        [1] VER MIS DIGIMON       *\n"
+                    + "     *                                  *\n"
+                    + "     *        [2] ORGANIZAR MI EQUIPO   *\n"
+                    + "     *                                  *\n"
+                    + "     *        [3] JUGAR PARTIDAS        *\n"
+                    + "     *                                  *\n"
+                    + "     *        [4] DIGIEVOLUCIONAR       *\n"
+                    + "     *                                  *\n"
+                    + "     *        [5] CERRAR SESION         *\n"
+                    + "     *                                  *\n"
+                    + "     ************************************\n");
             // en cerar sesion la partida se auto guarda 
             // ademas hay que implementar el auto guardado en cietos eventos del juego
             numero = SLeer2.datoInt("¿Como desea inciciar?");
@@ -181,6 +142,7 @@ public class Menu_Digimon {
             switch (numero) {
                 case 1:
                     //Ver mis digimon
+                    Consultas.muestraDigimon();
                     // vuelta al menu
                     break;
                 case 2:
@@ -203,13 +165,12 @@ public class Menu_Digimon {
                     System.out.println("----------");
                     System.out.println("Y: si");
                     System.out.println("N: no");
-                    String respuesta = SLeer2.datoString();
+                    String respuesta = SLeer2.datoString().toUpperCase();
                     if (!respuesta.equals("Y")) {
                         numero = 0;
                     } else {
                         user = null;
                     }
-
                     break;
 
                 default:
@@ -221,57 +182,133 @@ public class Menu_Digimon {
 
     }
 
+    /*
+     public void menu() {
+        //mostrar el meu  de adiminstrador 
+        Menu_Digimon.menuAdministrador();
+        int eleccion = SLeer2.datoInt("Selecciona la opcion: ");
+
+        switch (eleccion) {
+            //crear los casos para cada eleccion y el default
+            //1 -> alta usuario
+
+            case 1:
+                altaUsuario();
+                break;
+
+            //2 -> alta digimon
+            case 2:
+                altaDigimon();
+                break;
+
+            //3 -> listar digimon
+            case 3:
+                muestraDigimon();
+                break;
+            case 4:
+            //default -> informar numero erroneo y salir
+            default:
+                System.err.println("Opcion introducicda erronea");
+                break;
+        }
+    }
+    
+
+    public void menu() {
+        //mostrar el meu  de adiminstrador 
+        Menu_Digimon.menuAdministrador();
+        int eleccion = SLeer2.datoInt("Selecciona la opcion: ");
+
+        switch (eleccion) {
+            //crear los casos para cada eleccion y el default
+            //1 -> alta usuario
+
+            case 1:
+                Administrador.altaUsuario();
+                break;
+
+            //2 -> alta digimon
+            case 2:
+                Administrador.altaDigimon();
+                break;
+
+            //3 -> muestra digimon
+            case 3:
+                Administrador.muestraDigimon();
+                break;
+            case 4:
+            //default -> informar numero erroneo y salir
+            default:
+                System.err.println("Opcion introducicda erronea");
+                break;
+        }
+    }
+     */
     public static void menuAdministrador() {
         int numero = 0;
         do {
 
             System.out.println(
-                    "     *           MENÚ ADMINISTRADOR         *\n"
-                            + "     ***************************************\n"
-                            + "     *                                      *\n"
-                            + "     *        [1] ALTA DIGIUSUARIO          *\n"
-                            + "     *                                      *\n"
-                            + "     *        [2] ALTA DE DIGIMON           *\n"
-                            + "     *                                      *\n"
-                            //+ "       *        [3] DEFINIR DIGIEVOLUCION     *\n"
-                            + "     *                                      *\n"
-                            + "     *        [4] VER DIGIMONS              *\n"
-                            + "     *                                      *\n"
-                            // + "     *        [5] VOLVER AL INDICE          *\n"
-                            + "     *                                      *\n"
-                            + "     ****************************************\n");
+                    "     *           MENÚ ADMINISTRADOR           *\n"
+                    + "     ***************************************\n"
+                    + "     *                                      *\n"
+                    + "     *        [1] ALTA DIGIUSUARIO          *\n"
+                    + "     *                                      *\n"
+                    + "     *        [2] ALTA DE DIGIMON           *\n"
+                    + "     *                                      *\n"
+                    + "     *        [3] DEFINIR DIGIEVOLUCION     *\n"
+                    + "     *                                      *\n"
+                    + "     *        [4] VER DIGIMONS              *\n"
+                    + "     *                                      *\n"
+                    + "     *        [5] VE USUARIOS               *\n"
+                    + "     *                                      *\n"
+                    + "     *        [6] VOLVER AL INDICE          *\n"
+                    + "     ****************************************\n");
 
             numero = SLeer2.datoInt("¿Como desea inciciar?");
             SLeer2.limpiar();
-            if (numero == 5) {
-                exit = true;
-            } else {
-                switch (numero) {
-                    case 1:
-                        //ALta usuario
-                        Administrador.altaUsuario();
-                        break;
-                    case 2:
-                        //Alta Digimon
-                        Administrador.altaDigimon();
 
-                        break;
-                    case 3:
-                        //Definir Digi Evolucion
-                        System.out.println("Actualmente los digimons están pensado en que digievolucionar, espere a la proxima actualización");
-                        break;
-                    case 4:
-                        //listar los digimons
-                        Estar_Equipo.mostrarLista();
-                        break;
+            switch (numero) {
+                case 1:
+                    //ALta usuario
+                    Administrador.altaUsuario();
+                    break;
+                case 2:
+                    //Alta Digimon
+                    Administrador.altaDigimon();
 
-                    default:
-                        System.err.println("Opcion erronea, vuelva a seleccionar una de las opciones correctas");
-                        break;
-                }
+                    break;
+                case 3:
+                    //Definir Digi Evolucion
+                    System.out.println("Actualmente los digimons están pensado en que digievolucionar, espere a la proxima actualización");
+                    break;
+                case 4:
+                    //listar los digimons// metodo de la consulta
+//                    Estar_Equipo.mostrarLista();
+                    break;
+                case 5:
+                    Consultas.muestraUsuarios();
+                    break;
+                case 6:
+                    //guardar la informacion en la bbdd
+                    System.out.println("¿Realmente quiere salir?");
+                    System.out.println();
+                    System.out.println("[OPCIONES]");
+                    System.out.println("----------");
+                    System.out.println("Y: si");
+                    System.out.println("N: no");
+                    String respuesta = SLeer2.datoString().toUpperCase();
+                    if (!respuesta.equals("Y")) {
+                        numero = 0;
+                    }
+                    break;
+
+                default:
+                    System.err.println("Opcion erronea, vuelva a seleccionar una de las opciones correctas");
+                    break;
             }
 
-        } while (numero >= 1 && numero <= 5);
+        } while (numero != 6);
 
     }
 }

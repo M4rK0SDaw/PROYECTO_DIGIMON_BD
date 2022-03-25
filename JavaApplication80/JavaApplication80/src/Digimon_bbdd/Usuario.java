@@ -11,32 +11,39 @@ package Digimon_bbdd;
  */
 public class Usuario {
 
-    private String Nombre_J;
-    private String Password;
+     String name_j;
+     String passwd;
+    int adminUsu;
 
-    public Usuario(String Nombre_J, String Password) {
-        this.Nombre_J = Nombre_J;
-        this.Password = Password;
+    public Usuario(String NAME_J, String passwd, int adminUsu) {
+        this.name_j = NAME_J;
+        this.passwd = passwd;
+        this.adminUsu=adminUsu;
 
     }
 
-    public Usuario(String nombre) {
-        this.Nombre_J = nombre;
+    public String getNAME_J() {
+        return name_j;
     }
 
-    public String getNombre_J() {
-        return Nombre_J;
+    public void setNAME_J(String name_j) {
+        this.name_j = name_j;
     }
 
-    public void setNombre_J(String Nombre_J) {
-        this.Nombre_J = Nombre_J;
+    public String getPASSWD() {
+        return passwd;
     }
 
-    public String getPassword() {
-        return Password;
+    public void setPASSWD(String passwd) {
+        this.passwd = passwd;
     }
 
-    public void setPassword(String Password) {
-        this.Password = Password;
+    public int getAdministrador() {
+        return adminUsu;
     }
+
+    public void setAdministrador(int adminUsu) {
+        this.adminUsu = adminUsu;
+    }
+
 }

@@ -192,6 +192,7 @@ public class SLeer2 {
             }
         } while (leido == false);
         return dato;
+        
     }
 
     public static char datoChar(String mensaje) {
