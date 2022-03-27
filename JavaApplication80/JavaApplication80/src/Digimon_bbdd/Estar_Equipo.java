@@ -29,10 +29,10 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
     // para poder rellenarlo.
     //-------------------------------------------------------------
     //atributos
-    SortedMap<Integer, ArrayList<Digimon>> lista;
-    ArrayList<Usuario> ListaUsu;
-    String ListaUsu1 = "Ramon";
-    String ListaUsu2 = "Perro";
+    static SortedMap<Integer, ArrayList<Digimon>> lista;
+    static ArrayList<Usuario> ListaUsu;
+    static String ListaUsu1 = "ramon";
+    static String ListaUsu2 = "prrschz";
     public static ArrayList<Digimon> ListaDigi = new ArrayList();
 
     //constructor
@@ -43,28 +43,6 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
         ListaUsu = new ArrayList<>();
     }
 
-    //digimon por defecto
-//    Digimon dgL1 = new Digimon("Agumon");
-//    Digimon dgL2 = new Digimon("Tentomon");
-//    Digimon dgL3 = new Digimon("ANTOMON");
-//    Digimon dgL4 = new Digimon("MANAMON");
-//    Digimon dgL5 = new Digimon("ZAPATAMON");
-//    Digimon dgL6 = new Digimon("KOKORIMON");
-//
-//    private void rellenaArray() {
-//
-//        ListaDigi.add(dgL1);
-//        ListaDigi.add(dgL2);
-//        ListaDigi.add(dgL3);
-//        ListaDigi.add(dgL4);
-//        ListaDigi.add(dgL5);
-//        ListaDigi.add(dgL6);
-//
-//        DigimonSet.addAll(ListaDigi);
-//    }
-//    public void crearDigiDefault() {
-//        rellenaArray();
-//    }
     /**
      * Este metodo addDigimon agrega un digimon a la lista del hashset, si el
      * nombre es repetido es devuelve true y no existe es false.
@@ -103,7 +81,6 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
         } else {
         return false;
         }*/
-
     }
 
     /**
@@ -118,7 +95,7 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
      * @param usu
      * @return
      */
-    boolean agreg_Digi_a_Usu_Inicio(Usuario usu) {
+    public static boolean agreg_Digi_a_Usu_Inicio(Usuario usu) {
 
         if (!lista.containsKey(usu.getNAME_J())) {
             return false;
@@ -144,7 +121,7 @@ HashMap<Integer, Digimon> inforDigimon;*/ //crear una class de coneccion ocn la 
      * @param usu el nombre ue se el pasa por parametro al metodo.
      * @return true cuando se crea usuario y false cuando existe en el mapa
      */
-    boolean agregarUsuario(Usuario usu) {
+    public static boolean agregarUsuario(Usuario usu) {
 
         if (lista.containsKey(usu.getNAME_J())) {
             return false;

@@ -8,6 +8,7 @@ package Digimon_bbdd.consultas;
 import Digimon_bbdd.Conection.Conection;
 import Digimon_bbdd.Digimon;
 import Digimon_bbdd.Estar_Equipo;
+import static Digimon_bbdd.Estar_Equipo.ListaDigi;
 import Sleer2.SLeer2;
 
 import java.sql.*;
@@ -43,15 +44,16 @@ public class Consultas {
                             "select * from  player "
                             + "where NAME_J = '" + nombre
                             + "' and PASSWD = '" + contrasenya
-                            + "'" /*      /*and Administrador = " + 0*/)) {
-                        //bucle para sacar todos la informacion
-                        while (rs.next()) {
-                            comp = true;
-                            System.out.println(rs.getString(1) + " " + rs.getString(2));
-                        }
-                        //cerramos la conexion
+                            + "' and Administrador =  + " + 0)) {
+                //bucle para sacar todos la informacion
+                while (rs.next()) {
+                    comp = true;
+                    // System.out.println(rs.getString(1) + " " + rs.getString(2));
+                    // se puede poner que si se accede al admin que no tiene las creedenciales necesarias (usuario ordinario) ,pero es muy inefiicente, por que se puede saber ciertas creedenciales y luego implementar las inyecciones
+                }
+                //cerramos la conexion
 
-                    }
+            }
         } catch (SQLException e) {
 
             System.err.println("El usuario ya existe " + nombre);
@@ -316,7 +318,7 @@ public class Consultas {
         Consultas.insertatDigimonInicial("KOKORIMON", 40, 40, "vacuna", 1);
     }
 
-    public static void muestraDigimon() {
+    public static void muestraDigimonAdmin() {
         boolean comp = false;
         Connection con = Conection.conexion();
         try {
@@ -331,7 +333,7 @@ public class Consultas {
                             comp = true;
 
                             //muestra resultado
-                            System.out.println(rs.getString(2) + ", " + rs.getInt(4) + ", " + rs.getInt(5) + ", " + rs.getString(6) + "," + rs.getInt(7));
+                            System.out.println("[ Nombre: " + rs.getString(2) + ", ataque: " + rs.getInt(4) + ", defensa: " + rs.getInt(5) + ", tipo: " + rs.getString(6) + ", nivel: " + rs.getInt(7) + " ]");
 //                            Digimon digi = new Digimon(0, rs.getString(2), 0, rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7));
 //                            Equip.ListaDigi.add(digi);
                         }
@@ -357,7 +359,7 @@ public class Consultas {
                 while (rs.next()) {
 
                     //muestra resultado
-                    System.out.println(rs.getString(2) + ", " + rs.getString(3));
+                    System.out.println("[ Nombre: " + rs.getString(2) + " ]"); // ", //conatraseña: " + rs.getString(3)+" ]");
                 }
 
             }
@@ -365,7 +367,7 @@ public class Consultas {
             con.close();
         } catch (SQLException e) {
             //resultado de la excepcion
-             System.err.println("Ocurrio un error.");
+            System.err.println("Ocurrio un error.");
 
         }
     }
@@ -386,7 +388,7 @@ public class Consultas {
                             comp = true;
 
                             //muestra resultado
-                            System.out.println(rs.getString(2) + ", " + rs.getInt(4) + ", " + rs.getInt(5) + ", " + rs.getString(6) + "," + rs.getInt(7));
+                           // System.out.println(rs.getString(2) + ", " + rs.getInt(4) + ", " + rs.getInt(5) + ", " + rs.getString(6) + "," + rs.getInt(7));
                             Digimon digi = new Digimon(0, rs.getString(2), 0, rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getInt(7));
                             Equip.ListaDigi.add(digi);
                         }
@@ -396,6 +398,13 @@ public class Consultas {
         } catch (SQLException e) {
             //resultado de la excepcion
             //  System.err.println("El Digimon ya existe " + nombre);
+        }
+    }
+    
+    public static void main(String[] args) {
+        insertaDigiAlArray();
+         for(int i = 0; i <  ListaDigi.size(); i++) {
+            System.out.println( ListaDigi.get(i).toString());
         }
     }
 }

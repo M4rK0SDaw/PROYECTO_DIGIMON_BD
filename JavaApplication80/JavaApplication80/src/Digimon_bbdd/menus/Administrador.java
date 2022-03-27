@@ -1,14 +1,15 @@
 package Digimon_bbdd.menus;
 
 import Digimon_bbdd.*;
+import Digimon_bbdd.Usuario;
 import static Digimon_bbdd.consultas.Consultas.*;
-import Digimon_bbdd.Usuario.*;
 import Digimon_bbdd.consultas.Consultas;
+import static Digimon_bbdd.menus.Menu_Digimon.user;
 import Sleer2.SLeer2;
 
 /**
  *
- * @author Karol
+ * @author marek
  */
 public class Administrador {
 
@@ -22,23 +23,42 @@ public class Administrador {
     static String tipoDigi;
     static int adminUsu;
 
-   
-
     public static void altaUsuario() {
-        boolean aux3 = false;
+        //boolean aux3 = false;
         boolean exists = true;
-//nombre del usuario
+        //nombre del usuario
         String usuario;
         //Contrasenya del usuario y su comprobacion
         String contrasenya = null, contrasenya1, contrasenya2;
         //1(true) o 0(false) para saber si es administrador.
         char AdminChar;
+
+        boolean aux4 = false;
+        do {
+            AdminChar = SLeer2.datoChar("Desea que sea Admin?[S/N] :");
+            // hacemos la respuesta en minuscula.
+            char caracter = Character.toLowerCase(AdminChar);
+            if (caracter == 's') {
+
+                //aux3 = true;
+                aux4 = true;
+                adminUsu = 1;
+
+            } else if (caracter == 'n') {
+                //   aux3 = false;
+                aux4 = true;
+                adminUsu = 0;
+            } else {
+                Menu_Digimon.cls(1);
+                System.out.println("Valor introducido erroneo, por defecto no es administrador");
+            }
+        } while (aux4 = false);
+
         do {
             usuario = SLeer2.datoString("Introduce el usuario: ");
             // SLeer2.limpiar();
-//combio por consultaExisteUsuario
+            //combio por consultaExisteUsuario
             exists = consultaExisteUsuario(usuario);
-            //Consultas.consultaExisteAdmin(usuario);
 
             if (exists) {
                 System.out.println("El usuario indicado ya existe, inserte otro distinto.");
@@ -50,27 +70,14 @@ public class Administrador {
                 if (contrasenya1.equals(contrasenya2)) {
                     contrasenya = contrasenya1;
                 } else {
+                    System.out.println("la contraseña esta mal escrita, se volverán a pedir las credenciales");
                     exists = true;
                 }
-                //Pedir si quiere ser Admin.
-                boolean aux4 = false;
-                do {
-                    AdminChar = SLeer2.datoChar("Desea que sea Admin?[S/N] :");
-                    // hacemos la respuesta en minuscula.
-                    char caracter = Character.toLowerCase(AdminChar);
-                    if (caracter == 's') {
-
-                        aux3 = true;
-                        aux4 = true;
-                        adminUsu = 1;
-
-                    } else {
-                        aux3 = false;
-                        aux4 = true;
-                        adminUsu = 0;
-                    }
-                } while (aux4 = false);
-
+                Menu_Digimon.cls(1);
+                System.out.println("\u001B[32m EL usuario " + usuario + ", fue creado corrctamente. ");
+                Menu_Digimon.cls(1);
+                Menu_Digimon.pausa();
+                Menu_Digimon.cls(15);
             }
 
         } while (exists);
@@ -78,6 +85,8 @@ public class Administrador {
         //crear usuario admin
         Menu_Digimon.user = new Usuario(usuario, contrasenya, adminUsu);
         Consultas.insertatUsuario(usuario, contrasenya, adminUsu);
+     //   .Estar_Equipo.agregarUsuario(Menu_Digimon.user);
+        Estar_Equipo.agreg_Digi_a_Usu_Inicio(Menu_Digimon.user);
 
     }
 

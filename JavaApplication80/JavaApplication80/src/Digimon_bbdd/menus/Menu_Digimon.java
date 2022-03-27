@@ -30,8 +30,20 @@ public class Menu_Digimon {
         //this.partida = new Partidas();
     }
 
-    public void Menu() {
+    public static void cls(int num) {
+        for (int i = 0; i < num; i++) {
+            System.out.println();
+        }
+    }
 
+    public static void pausa() {
+        System.out.println(" Pulse la tecla enter pa seguir....");
+        SLeer2.limpiar();
+        cls(3);
+    }
+
+    public void Menu() {
+        cls(15);
         System.out.println(
                 "     *                 MENÚ             *\n"
                 + "     ************************************\n"
@@ -45,8 +57,9 @@ public class Menu_Digimon {
                 + "     *        [4] SALIR                 *\n"
                 + "     *                                  *\n"
                 + "     ************************************\n");
-
+        cls(1);
         int numero = SLeer2.datoInt("¿Como desea inciciar?");
+
         SLeer2.limpiar();
 
         switch (numero) {
@@ -61,9 +74,9 @@ public class Menu_Digimon {
             case 2:
                 //comprobamos que exista un usuario creado
                 // buscar el usuario en la base de datos
-                String nombre = SLeer2.datoString("Introduce el nombre");
-
-                if (Consultas.consultaExisteUsuario(nombre)) {
+                String nombre = SLeer2.datoString("Introduzca nombre");
+                String contrasenya1 = SLeer2.datoString("Introduzca contraseña: ");
+                if (Consultas.consultaCredencialesUsuario(nombre, contrasenya1)) {
                     Consultas.eliminarUsuario(nombre);
                 } else {
                     System.err.println(".....No existe dicho usuario");
@@ -116,11 +129,12 @@ public class Menu_Digimon {
     }
 
     public void menuUsuario() {
+
         int numero;
         do {
-
+            cls(15);
             System.out.println(
-                    "     *           MENÚ USUARIO             *\n"
+                    "     *           MENÚ USUARIO            *\n"
                     + "     ************************************\n"
                     + "     *                                  *\n"
                     + "     *        [1] VER MIS DIGIMON       *\n"
@@ -142,22 +156,37 @@ public class Menu_Digimon {
             switch (numero) {
                 case 1:
                     //Ver mis digimon
-                    Consultas.muestraDigimon();
+                    //Consultas.muestraDigimon();
+                    cls(5);
+
+// System.out.println("Los Digimons no se encuentran muy bien ahora mismo.");
                     // vuelta al menu
+                    cls(1);
+                    pausa();
                     break;
                 case 2:
+                    cls(5);
                     //Organizar mi equipo
                     System.out.println("Los digimons son unos vagos y no quieren moverse. ");
+                    cls(1);
+                    pausa();
                     break;
                 case 3:
+                    cls(5);
                     //Jugar partida
                     //Llamar menu partida, selecionar difcultad(medu dificultad(facil, medio, dificil y aleatorio)).
                     System.out.println("Los digimons  no quieren pelearse contra sus amigos, los otros digimons. Lo sentimos, esperese hasta la proxima actualización. ");
+                    cls(1);
+                    pausa();
                     break;
                 case 4:
+                    cls(5);
                     System.out.println("Actualmente los digimons están pensado en que digievolucionar, espere a la proxima actualización. ");
+                    cls(1);
+                    pausa();
                     break;
                 case 5:
+                    cls(5);
                     //guardar la informacion en la bbdd
                     System.out.println("¿Realmente quiere salir?");
                     System.out.println();
@@ -171,6 +200,8 @@ public class Menu_Digimon {
                     } else {
                         user = null;
                     }
+                    cls(15);
+
                     break;
 
                 default:
@@ -182,74 +213,13 @@ public class Menu_Digimon {
 
     }
 
-    /*
-     public void menu() {
-        //mostrar el meu  de adiminstrador 
-        Menu_Digimon.menuAdministrador();
-        int eleccion = SLeer2.datoInt("Selecciona la opcion: ");
-
-        switch (eleccion) {
-            //crear los casos para cada eleccion y el default
-            //1 -> alta usuario
-
-            case 1:
-                altaUsuario();
-                break;
-
-            //2 -> alta digimon
-            case 2:
-                altaDigimon();
-                break;
-
-            //3 -> listar digimon
-            case 3:
-                muestraDigimon();
-                break;
-            case 4:
-            //default -> informar numero erroneo y salir
-            default:
-                System.err.println("Opcion introducicda erronea");
-                break;
-        }
-    }
-    
-
-    public void menu() {
-        //mostrar el meu  de adiminstrador 
-        Menu_Digimon.menuAdministrador();
-        int eleccion = SLeer2.datoInt("Selecciona la opcion: ");
-
-        switch (eleccion) {
-            //crear los casos para cada eleccion y el default
-            //1 -> alta usuario
-
-            case 1:
-                Administrador.altaUsuario();
-                break;
-
-            //2 -> alta digimon
-            case 2:
-                Administrador.altaDigimon();
-                break;
-
-            //3 -> muestra digimon
-            case 3:
-                Administrador.muestraDigimon();
-                break;
-            case 4:
-            //default -> informar numero erroneo y salir
-            default:
-                System.err.println("Opcion introducicda erronea");
-                break;
-        }
-    }
-     */
     public static void menuAdministrador() {
         int numero = 0;
-        do {
 
+        do {
+            cls(15);
             System.out.println(
-                    "     *           MENÚ ADMINISTRADOR           *\n"
+                    "     *         MENÚ ADMINISTRADOR           *\n"
                     + "     ***************************************\n"
                     + "     *                                      *\n"
                     + "     *        [1] ALTA DIGIUSUARIO          *\n"
@@ -270,24 +240,39 @@ public class Menu_Digimon {
 
             switch (numero) {
                 case 1:
+                    cls(1);
                     //ALta usuario
                     Administrador.altaUsuario();
+                    cls(1);
+                    pausa();
                     break;
                 case 2:
+                    cls(1);
                     //Alta Digimon
                     Administrador.altaDigimon();
+                    cls(1);
+                    pausa();
 
                     break;
                 case 3:
+                    cls(1);
                     //Definir Digi Evolucion
                     System.out.println("Actualmente los digimons están pensado en que digievolucionar, espere a la proxima actualización");
+                    cls(1);
+                    pausa();
                     break;
                 case 4:
+                    cls(1);
                     //listar los digimons// metodo de la consulta
-//                    Estar_Equipo.mostrarLista();
+                    Consultas.muestraDigimonAdmin();
+                    cls(1);
+                    pausa();
                     break;
                 case 5:
+                    cls(1);
                     Consultas.muestraUsuarios();
+                    cls(1);
+                    pausa();
                     break;
                 case 6:
                     //guardar la informacion en la bbdd
@@ -309,6 +294,6 @@ public class Menu_Digimon {
             }
 
         } while (numero != 6);
-
+        Menu_Digimon.cls(2);
     }
 }

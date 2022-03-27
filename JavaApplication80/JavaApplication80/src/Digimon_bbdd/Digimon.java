@@ -99,7 +99,11 @@ public class Digimon {
 
     @Override
     public String toString() {
-        return "Digimon{" + "NAME_Digi=" + NAME_Digi + ", ATTACK=" + ATTACK + ", DEFENSE=" + DEFENSE + ", TYPE_DIGI=" + TYPE_DIGI + ", LVL=" + LVL + '}';
+        return "Digimon{" + "Nombre = " + NAME_Digi + ", ataque = " + ATTACK + ", defensa = " + DEFENSE + ", tipo = " + TYPE_DIGI + ", nivel= " + LVL + '}';
+    }
+
+    public boolean getName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

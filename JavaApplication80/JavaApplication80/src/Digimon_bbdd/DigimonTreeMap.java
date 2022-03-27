@@ -25,7 +25,7 @@ public class DigimonTreeMap {
     static Digimon digimon;
 
     public static void main(String[] args) {
-        // cargar os digimon si no existen, si existen no lo hace.
+        // cargar los digimon si no existen, si existen no lo hace.
         Consultas.cargarDIgimon();
         //mostrar menu
         Menu_Digimon men = new Menu_Digimon();
@@ -35,11 +35,5 @@ public class DigimonTreeMap {
 
         }
 
-        //etEqu.mostrarLista();
-        /*int usu = Menu_Digimon.Menu();
-
-        if (usu == 1) {
-            Menu_Digimon.menuUsuario();
-        }*/
     }
 }

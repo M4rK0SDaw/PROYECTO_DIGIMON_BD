@@ -11,18 +11,18 @@ package Digimon_bbdd;
  */
 public class Usuario {
 
-     String name_j;
-     String passwd;
-    int adminUsu;
+    public static String name_j;
+    public static String passwd;
+    public static int adminUsu;
 
     public Usuario(String NAME_J, String passwd, int adminUsu) {
         this.name_j = NAME_J;
         this.passwd = passwd;
-        this.adminUsu=adminUsu;
+        this.adminUsu = adminUsu;
 
     }
 
-    public String getNAME_J() {
+    public static String getNAME_J() {
         return name_j;
     }
 
