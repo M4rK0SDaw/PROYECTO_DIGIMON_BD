@@ -1,16 +1,16 @@
-create database DIGIMON_BD;
-use DIGIMON_BD;
+create database DIGIMON_BD1;
+use DIGIMON_BD1;
 
 CREATE TABLE PLAYER (
 id_name int auto_increment,
 NAME_J VARCHAR(20) unique,
 PASSWD VARCHAR(32) NOT NULL,
 Administrador BOOLEAN,
-constraint JU_PK primary KEY( NAME_J)
+constraint JU_PK primary KEY( id_name)
 );
 
 CREATE TABLE DIGIMON(
-ID_DIGIMON auto_increment,
+ID_DIGIMON int auto_increment,
 NAME_Digi varchar(30) unique,
 ID_EVOLUTION int DEFAULT null ,
 ATTACK  INT NOT NULL DEFAULT 40,
@@ -28,11 +28,11 @@ CREATE TABLE TENER_DIGI(
 id_name int ,
 ID_DIGIMON  int ,
 
-constraint TD_PK PRIMARY KEY ( NAME_J,ID_DIGIMON)
+constraint TD_PK PRIMARY KEY ( id_name,ID_DIGIMON)
 );
 
 alter table TENER_DIGI
-add constraint TD_JU_FK foreign key (NAME_J ) references PLAYER (NAME_J );
+add constraint TD_JU_FK foreign key (id_name ) references PLAYER (id_name );
 
 alter table TENER_DIGI
-add constraint TD_DI_FK foreign key (ID_DIGIMON ) references DIGIMON (ID_DIGIMON )on delete on CASCADE;
+add constraint TD_DI_FK foreign key (ID_DIGIMON ) references DIGIMON (ID_DIGIMON );
