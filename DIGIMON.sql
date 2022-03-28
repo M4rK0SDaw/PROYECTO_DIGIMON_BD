@@ -1,5 +1,5 @@
-create database DIGIMON_BD1;
-use DIGIMON_BD1;
+create database DIGIMON_BD;
+use DIGIMON_BD;
 
 CREATE TABLE PLAYER (
 id_name int auto_increment,
@@ -36,3 +36,4 @@ add constraint TD_JU_FK foreign key (id_name ) references PLAYER (id_name );
 
 alter table TENER_DIGI
 add constraint TD_DI_FK foreign key (ID_DIGIMON ) references DIGIMON (ID_DIGIMON );
+
