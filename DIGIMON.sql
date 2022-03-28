@@ -1,50 +1,39 @@
-
--- ____________________________________________________________________
-
-create database DIGIMON_BD2;
-use DIGIMON_BD2;
+create database DIGIMON_BD;
+use DIGIMON_BD;
 
 CREATE TABLE PLAYER (
-NAME_J VARCHAR(20),
+id_name int auto_increment,
+NAME_J VARCHAR(20) unique,
 PASSWD VARCHAR(32) NOT NULL,
-MATCH_WIN INT NOT NULL,
-MATCH_PLAY INT NOT NULL,
-constraint PK_PL primary KEY( NAME_J)
+Administrador BOOLEAN,
+constraint JU_PK primary KEY( id_name)
 );
 
 CREATE TABLE DIGIMON(
-ID_DIGIMON int,
-NAME_Digi varchar(25) unique,
-ID_EVOLUTION int  not null,
-ATTACK  INT NOT NULL,
-DEFENSE INT NOT NULL,
-TYPE_DIGI INT NOT NULL,
-LVL INT ,
-constraint PK_DIGI primary key (ID_DIGIMON)
+ID_DIGIMON int auto_increment,
+NAME_Digi varchar(30) unique,
+ID_EVOLUTION int DEFAULT null ,
+ATTACK  INT NOT NULL DEFAULT 40,
+DEFENSE INT NOT NULL DEFAULT 40,
+TYPE_DIGI ENUM("vacuna","virus","elemental","animal","planta") DEFAULT "vacuna",
+LVL ENUM('1','2','3') default 1,
+constraint DIG_PK primary key (ID_DIGIMON)
 );
-
-alter table DIGIMON 
-ADD constraint FK_DIGI FOREIGN KEY (ID_EVOLUTION) references DIGIMON(ID_DIGIMON);
-
-
 /*
 He creado el campo campo del id_evolucion para poder asociarlo a su proxima digievolucion,
 ya que se puede definir al crear un digimon nuevo.
 */
 
-CREATE TABLE HAV_DIGI(
-NAME_J VARCHAR(20),
-NAME_Digi VARCHAR(20),
-Is_In_TEAM bool not null ,
-constraint TD_PK PRIMARY KEY ( NAME_J,NAME_Digi)
+CREATE TABLE TENER_DIGI(
+id_name int ,
+ID_DIGIMON  int ,
+
+constraint TD_PK PRIMARY KEY ( id_name,ID_DIGIMON)
 );
 
-alter table HAV_DIGI
-add constraint FK_HV_PL foreign key (NAME_J ) references PLAYER (NAME_J );
+alter table TENER_DIGI
+add constraint TD_JU_FK foreign key (id_name ) references PLAYER (id_name );
 
-alter table HAV_DIGI
-add constraint FK_HV_DI foreign key (NAME_Digi ) references DIGIMON (NAME_Digi );
-
-
-
+alter table TENER_DIGI
+add constraint TD_DI_FK foreign key (ID_DIGIMON ) references DIGIMON (ID_DIGIMON );
 
